@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { InputText } from 'primeng/inputtext';
 import { Password } from 'primeng/password';
 import { MessageModule } from 'primeng/message';
-import { AuthStore } from '../../../../shared';
-import { SignInCredentials } from '../../../../entities';
+import { AuthStore } from '@shared/stores';
+import { SignInCredentials } from '@entities/user/api';
 
 @Component({
   selector: 'app-login',

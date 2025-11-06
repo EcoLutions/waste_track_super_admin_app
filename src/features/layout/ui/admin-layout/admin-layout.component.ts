@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core'; // <-- No se necesita OnInit
 import { CommonModule, NgClass } from '@angular/common';
 import { RouterOutlet, Router } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { AuthStore } from '../../../../shared';
+import { AuthStore } from '@shared/stores';
 import {LayoutStore, NavItem} from '../../model/layout.store';
 
 @Component({

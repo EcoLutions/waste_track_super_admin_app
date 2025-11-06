@@ -81,6 +81,12 @@ const initialState: LayoutState = {
     { label: 'Planes', routerLink: '/plans', icon: 'pi pi-th-large', ariaLabel: 'Catálogo de planes' },
     { label: 'Reportes', routerLink: '/reports', icon: 'pi pi-file-pdf', ariaLabel: 'Reportes de negocio' },
     { label: 'separator-3', separator: true, icon: '' },
+    {
+      label: 'Distritos',
+      routerLink: '/districts',
+      icon: 'pi pi-map-marker',
+      ariaLabel: 'Gestión de distritos',
+    },
   ],
 };
 

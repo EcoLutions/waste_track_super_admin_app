@@ -1,7 +1,7 @@
 import { Component, inject, output, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { AuthStore } from '../../../../shared';
+import { AuthStore } from '@shared/stores';
 import {LayoutStore, NavItem} from '../../model/layout.store';
 
 @Component({
