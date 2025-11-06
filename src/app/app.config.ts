@@ -1,19 +1,17 @@
 import {
-  ApplicationConfig, inject,
+  ApplicationConfig,
+  inject,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
-  provideZoneChangeDetection
+  provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import {provideHttpClient, withInterceptors} from '@angular/common/http';
-import {
-  AppInitializerService,
-  authenticationInterceptor
-} from '../shared';
-import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
-import {providePrimeNG} from 'primeng/config';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { AppInitializerService, authenticationInterceptor } from '../shared';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 
 export const appInitializerProviders = () => {
@@ -26,18 +24,16 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(
-      withInterceptors([authenticationInterceptor])
-    ),
+    provideHttpClient(withInterceptors([authenticationInterceptor])),
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
         preset: Aura,
         options: {
-          darkModeSelector: false // Disable dark mode selector
-        }
-      }
+          darkModeSelector: false, // Disable dark mode selector
+        },
+      },
     }),
     provideAppInitializer(appInitializerProviders),
-  ]
+  ],
 };
