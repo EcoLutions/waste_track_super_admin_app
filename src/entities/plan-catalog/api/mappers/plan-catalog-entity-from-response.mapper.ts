@@ -5,7 +5,6 @@ import {EnumMapper} from '@shared/api/mappers/enum.mapper';
 
 export class PlanCatalogEntityFromResponseMapper {
   static fromDtoToEntity(dto: PlanCatalogResponse): PlanCatalogEntity {
-    console.log(dto);
     return {
       id: dto.id ?? '',
       name: dto.name ?? '',
