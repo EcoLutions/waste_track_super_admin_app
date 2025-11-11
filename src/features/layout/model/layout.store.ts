@@ -48,12 +48,12 @@ const initialState: LayoutState = {
     },
     { label: 'separator-1', separator: true, icon: '' },
     {
-      label: 'Clientes',
-      icon: 'pi pi-building',
-      ariaLabel: 'Gestión de clientes',
+      label: 'Distritos',
+      icon: 'pi pi-map-marker',
+      ariaLabel: 'Gestión de distritos',
       items: [
-        { label: 'Todos los Clientes', routerLink: '/clients', icon: 'pi pi-list', ariaLabel: 'Ver todos los clientes' },
-        { label: 'Crear Cliente', routerLink: '/clients/new', icon: 'pi pi-plus-circle', ariaLabel: 'Crear nuevo cliente' },
+        { label: 'Todos los Distritos', routerLink: '/districts', icon: 'pi pi-list', ariaLabel: 'Ver todos los distritos' },
+        { label: 'Crear Distrito', routerLink: '/districts/new', icon: 'pi pi-plus-circle', ariaLabel: 'Crear nuevo distrito' },
       ],
     },
     {
@@ -81,12 +81,6 @@ const initialState: LayoutState = {
     { label: 'Planes', routerLink: '/plan-catalog', icon: 'pi pi-th-large', ariaLabel: 'Catálogo de planes' },
     { label: 'Reportes', routerLink: '/reports', icon: 'pi pi-file-pdf', ariaLabel: 'Reportes de negocio' },
     { label: 'separator-3', separator: true, icon: '' },
-    {
-      label: 'Distritos',
-      routerLink: '/districts',
-      icon: 'pi pi-map-marker',
-      ariaLabel: 'Gestión de distritos',
-    },
   ],
 };
 
