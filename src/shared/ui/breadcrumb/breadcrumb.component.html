@@ -42,7 +42,7 @@
         @if (items().length > 2) {
           <button
             type="button"
-            class="flex shrink-0 items-center gap-1 text-gray-600 hover:text-sky-600">
+            class="flex shrink-0 items-center gap-1 text-gray-600 hover:text-green-600">
             <i class="pi pi-ellipsis-h text-xs"></i>
           </button>
           <i class="pi pi-chevron-right shrink-0 text-xs text-gray-400"></i>
@@ -53,7 +53,7 @@
             <a
             [routerLink]="item.route"
               [queryParams]="item.queryParams"
-              class="min-w-0 shrink truncate text-gray-600 transition-colors hover:text-sky-600"
+              class="min-w-0 shrink truncate text-gray-600 transition-colors hover:text-green-600"
               [title]="item.label"
               (click)="onItemClick(item)">
             @if (item.icon) {
@@ -82,7 +82,7 @@
             <a
             [routerLink]="item.route"
               [queryParams]="item.queryParams"
-              class="shrink-0 whitespace-nowrap text-gray-600 transition-colors hover:text-sky-600"
+              class="shrink-0 whitespace-nowrap text-gray-600 transition-colors hover:text-green-600"
               (click)="onItemClick(item)">
             @if (item.icon) {
               <i [class]="item.icon + ' mr-1'"></i>

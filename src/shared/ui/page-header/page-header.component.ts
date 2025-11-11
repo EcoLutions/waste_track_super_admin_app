@@ -174,13 +174,13 @@ export class PageHeaderComponent {
 
     switch (variant) {
       case 'primary':
-        return `${baseClasses} bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-sm hover:shadow-md hover:shadow-sky-500/30 focus:ring-sky-500`;
+        return `${baseClasses} bg-gradient-to-r from-green-600 to-green-700 text-white shadow-sm hover:shadow-md hover:shadow-green-600/30 focus:ring-green-500`;
       case 'secondary':
-        return `${baseClasses} border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-sky-500`;
+        return `${baseClasses} border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-green-500`;
       case 'ghost':
         return `${baseClasses} text-gray-700 hover:bg-gray-100 focus:ring-gray-500`;
       default:
-        return `${baseClasses} border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-sky-500`;
+        return `${baseClasses} border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-green-500`;
     }
   }
 
