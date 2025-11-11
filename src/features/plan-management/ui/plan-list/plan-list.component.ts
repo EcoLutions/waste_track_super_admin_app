@@ -2,14 +2,14 @@ import {Component, computed, input, output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PlanCatalogEntity} from '@entities/plan-catalog/model';
 import {BillingPeriodEnum, CurrencyEnum} from '@shared/model';
-import {BillingPeriodToStringMapper, CurrencyToSymbolMapper} from '@shared/model/mappers';
+import {CurrencyMapper} from '@shared/model/mappers/currency.mapper';
+import {BillingPeriodMapper} from '@shared/model/mappers/billing-period.mapper';
 
 @Component({
   selector: 'app-plan-list',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './plan-list.component.html',
-  styleUrl: './plan-list.component.css',
 })
 export class PlanListComponent {
   readonly plans = input.required<PlanCatalogEntity[]>();
@@ -23,17 +23,13 @@ export class PlanListComponent {
 
   readonly isEmpty = computed(() => this.plans().length === 0);
 
-  getCurrencySymbol(currency: CurrencyEnum): string {
-    return CurrencyToSymbolMapper.map(currency);
+  formatPrice(amount: number, currency: CurrencyEnum): string {
+    const symbol = CurrencyMapper.toSymbol(currency);
+    return `${symbol} ${amount.toFixed(2)}`;
   }
 
   getBillingPeriodLabel(period: BillingPeriodEnum): string {
-    return BillingPeriodToStringMapper.map(period);
-  }
-
-  formatPrice(amount: number, currency: CurrencyEnum): string {
-    const symbol = this.getCurrencySymbol(currency);
-    return `${symbol} ${amount.toFixed(2)}`;
+    return BillingPeriodMapper.toLabel(period);
   }
 
   onSearchChange(event: Event): void {
