@@ -25,7 +25,7 @@ import {Divider} from 'primeng/divider';
   providers: [PlanListStore, MessageService, ConfirmationService],  // ✅ CORREGIDO
   templateUrl: './plans.page.html',
 })
-export class PlansPage {
+export default class PlansPage {
   private router = inject(Router);
   private messageService = inject(MessageService);
   private confirmationService = inject(ConfirmationService);
