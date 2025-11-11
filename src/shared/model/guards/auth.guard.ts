@@ -6,7 +6,7 @@ import {AuthStore} from '@shared/model/stores/auth.store';
  * This guard checks if the user is authenticated
  * If not, it redirects to the login page
  */
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateFn = (_, state) => {
   const authStore = inject(AuthStore);
   const router = inject(Router);
 
@@ -29,7 +29,7 @@ export const authGuard: CanActivateFn = (route, state) => {
  * If not, it redirects to the unauthorized page
  */
 export const roleGuard = (allowedRoles: string[]): CanActivateFn => {
-  return (route, state) => {
+  return () => {
     const authStore = inject(AuthStore);
     const router = inject(Router);
 
