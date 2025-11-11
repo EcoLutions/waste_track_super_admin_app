@@ -1,8 +1,6 @@
-import { inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { CanActivateFn } from '@angular/router';
-import { AuthStore } from '../stores';
-
+import {inject} from '@angular/core';
+import {CanActivateFn, Router} from '@angular/router';
+import {AuthStore} from '@shared/model/stores/auth.store';
 /*
  * Auth guard
  * This guard checks if the user is authenticated
@@ -22,23 +20,6 @@ export const authGuard: CanActivateFn = (route, state) => {
     })
     .then(() => {});
 
-  return false;
-};
-
-/*
- * Admin guard
- * This guard checks if the user is authenticated and is an admin
- * If not, it redirects to the unauthorized page
- */
-export const adminGuard: CanActivateFn = (route, state) => {
-  const authStore = inject(AuthStore);
-  const router = inject(Router);
-
-  if (authStore.isAuthenticated() && authStore.isAdmin()) {
-    return true;
-  }
-
-  router.navigate(['/unauthorized']).then(() => {});
   return false;
 };
 

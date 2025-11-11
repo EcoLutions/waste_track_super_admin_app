@@ -1,8 +1,8 @@
-import { Component, inject, output, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
-import { AuthStore } from '@shared/stores';
+import {Component, computed, inject, output} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Router, RouterModule} from '@angular/router';
 import {LayoutStore, NavItem} from '../../model/layout.store';
+import {AuthStore} from '@shared/model/stores/auth.store';
 
 @Component({
   selector: 'app-sidebar',

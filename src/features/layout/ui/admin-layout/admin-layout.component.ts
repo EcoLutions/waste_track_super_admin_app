@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core'; // <-- No se necesita OnInit
-import { CommonModule, NgClass } from '@angular/common';
-import { RouterOutlet, Router } from '@angular/router';
-import { SidebarComponent } from '../sidebar/sidebar.component';
-import { AuthStore } from '@shared/stores';
+import {Component, inject} from '@angular/core'; // <-- No se necesita OnInit
+import {CommonModule, NgClass} from '@angular/common';
+import {Router, RouterOutlet} from '@angular/router';
+import {SidebarComponent} from '../sidebar/sidebar.component';
 import {LayoutStore, NavItem} from '../../model/layout.store';
+import {AuthStore} from '@shared/model/stores/auth.store';
 
 @Component({
   selector: 'app-admin-layout',

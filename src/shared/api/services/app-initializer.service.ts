@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { AuthStore } from '../stores';
+import {inject, Injectable} from '@angular/core';
+import {AuthStore} from '@shared/model/stores/auth.store';
 
 @Injectable({
   providedIn: 'root',

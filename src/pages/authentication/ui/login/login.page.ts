@@ -1,11 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { InputText } from 'primeng/inputtext';
-import { Password } from 'primeng/password';
-import { MessageModule } from 'primeng/message';
-import { AuthStore } from '@shared/stores';
-import { SignInCredentials } from '@entities/user/api';
+import {Component, inject, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormsModule} from '@angular/forms';
+import {InputText} from 'primeng/inputtext';
+import {Password} from 'primeng/password';
+import {MessageModule} from 'primeng/message';
+import {SignInCredentials} from '@entities/user/api';
+import {AuthStore} from '@shared/model/stores/auth.store';
 
 @Component({
   selector: 'app-login',

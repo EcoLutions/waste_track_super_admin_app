@@ -1,12 +1,11 @@
-import { computed, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { StorageService } from '../services';
-import { AuthenticationService } from '../../entities';
-import { UserEntity } from '../../entities';
-import { SignInCredentials } from '../../entities';
-import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
-import { RolesEnum } from '../../entities';
-import { firstValueFrom } from 'rxjs';
+import {computed, inject} from '@angular/core';
+import {Router} from '@angular/router';
+import {firstValueFrom} from 'rxjs';
+import {patchState, signalStore, withComputed, withMethods, withState} from '@ngrx/signals';
+import {UserEntity} from '@entities/user/model';
+import {RolesEnum} from '@entities/role/model';
+import {AuthenticationService, SignInCredentials} from '@entities/user/api';
+import {StorageService} from '@shared/api/services/storage.service';
 
 export interface AuthState {
   user: UserEntity | null;

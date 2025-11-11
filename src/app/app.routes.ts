@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
-import { LoginPage } from '../pages/authentication/ui/login/login.page';
+import { LoginPage } from '@pages/authentication/ui/login/login.page';
 import { authGuard, roleGuard } from '../shared';
-import { DashboardPage } from '../pages/dashboard/ui/dashboard/dashboard.page';
-import { AdminLayoutComponent } from '../features/layout/ui/admin-layout/admin-layout.component';
-import {NotFoundPage} from '../pages/authentication/ui/not-found/not-found.page';
+import { DashboardPage } from '@pages/dashboard/ui/dashboard/dashboard.page';
+import { AdminLayoutComponent } from '@features/layout/ui/admin-layout/admin-layout.component';
+import { NotFoundPage } from '@pages/authentication/ui/not-found/not-found.page';
+import {PlanCatalogPage} from '@pages/plancatalog/ui/plan-catalog/plan-catalog.page';
+import PlanCatalogFormPage from '@pages/plancatalog/ui/plan-catalog-form/plan-catalog-form.page';
 
 export const routes: Routes = [
   // ==================== PUBLIC PAGES ====================
@@ -24,6 +26,20 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardPage,
+      },
+
+      // ==================== PLAN CATALOG ====================
+      {
+        path: 'plan-catalog',
+        component: PlanCatalogPage,
+      },
+      {
+        path: 'plan-catalog/create',
+        component: PlanCatalogFormPage,
+      },
+      {
+        path: 'plan-catalog/edit/:id',
+        component: PlanCatalogFormPage,
       },
     ],
   },
