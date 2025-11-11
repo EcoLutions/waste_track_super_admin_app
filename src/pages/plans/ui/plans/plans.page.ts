@@ -2,9 +2,13 @@ import {Component, effect, inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {BreadcrumbComponent, BreadcrumbItem} from '@shared/ui/breadcrumb/breadcrumb.component';
 import {PageHeaderAction, PageHeaderComponent} from '@shared/ui/page-header/page-header.component';
-import {PlanListComponent} from '@features/plan-management';
-import {PlanListStore} from '@features/plan-management/model/stores';
+import {PlanListStore} from '@features/plan-management/model/plan-list.store'; // ✅ CORREGIDO
 import {PlanCatalogEntity} from '@entities/plan-catalog/model';
+import {ToastModule} from 'primeng/toast';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {PlanListComponent} from '@features/plan-management/ui';
+import {Divider} from 'primeng/divider';
 
 @Component({
   selector: 'app-plans-page',
@@ -12,19 +16,24 @@ import {PlanCatalogEntity} from '@entities/plan-catalog/model';
   imports: [
     BreadcrumbComponent,
     PageHeaderComponent,
-    PlanListComponent
+    PlanListComponent,
+    ToastModule,
+    ConfirmDialogModule,
+    PlanListComponent,
+    Divider,
   ],
-  providers: [PlanListStore],
+  providers: [PlanListStore, MessageService, ConfirmationService],  // ✅ CORREGIDO
   templateUrl: './plans.page.html',
-  styleUrl: './plans.page.css',
 })
 export default class PlansPage {
   private router = inject(Router);
-  readonly store = inject(PlanListStore);
+  private messageService = inject(MessageService);
+  private confirmationService = inject(ConfirmationService);
+  readonly store = inject(PlanListStore);  // ✅ CORREGIDO
 
   breadcrumbItems: BreadcrumbItem[] = [
     { label: 'Inicio', route: '/dashboard', icon: 'pi pi-home' },
-    { label: 'Planes' }
+    { label: 'Planes' },
   ];
 
   primaryActions: PageHeaderAction[] = [
@@ -34,45 +43,65 @@ export default class PlansPage {
       icon: 'pi-plus',
       variant: 'primary',
       showInMobile: true,
-      onClick: () => this.onCreatePlan()
-    }
+      onClick: () => this.onCreatePlan(),
+    },
   ];
 
   constructor() {
-    // Load plans on init
     this.store.loadPlans();
 
-    // Effect to handle errors
     effect(() => {
       const error = this.store.error();
       if (error) {
-        console.error('Error en planes:', error);
-        // TODO: Implementar toast notification
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error,
+          life: 5000,
+        });
       }
     });
   }
 
   onCreatePlan(): void {
-    console.log('Crear nuevo plan');
-    // TODO: Implementar modal/página de creación
+    this.router.navigate(['/plans/create']).then( );
   }
 
   onPlanSelected(plan: PlanCatalogEntity): void {
-    console.log('Plan seleccionado:', plan);
-    // TODO: Navegar a detalles o abrir modal
+    this.router.navigate(['/plans/edit', plan.id]).then();
   }
 
   onPlanEdit(plan: PlanCatalogEntity): void {
-    console.log('Editar plan:', plan);
-    // TODO: Implementar modal/página de edición
+    this.router.navigate(['/plans/edit', plan.id]).then();
   }
 
   onPlanDelete(plan: PlanCatalogEntity): void {
-    console.log('Eliminar plan:', plan);
-    // TODO: Implementar confirmación y eliminación
-    if (confirm(`¿Estás seguro de eliminar el plan "${plan.name}"?`)) {
-      this.store.deletePlan(plan.id);
-    }
+    this.confirmationService.confirm({
+      header: 'Confirmar Eliminación',
+      message: `¿Estás seguro de que deseas eliminar el plan "${plan.name}"? Esta acción no se puede deshacer.`,
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sí, eliminar',
+      rejectLabel: 'Cancelar',
+      acceptButtonStyleClass: 'p-button-danger',
+      accept: async () => {
+        try {
+          await this.store.deletePlan(plan.id);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Plan Eliminado',
+            detail: `El plan "${plan.name}" ha sido eliminado exitosamente.`,
+            life: 4000,
+          });
+        } catch (error) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error al Eliminar',
+            detail: 'No se pudo eliminar el plan. Inténtalo de nuevo.',
+            life: 5000,
+          });
+        }
+      },
+    });
   }
 
   onSearchTermChange(searchTerm: string): void {
@@ -81,9 +110,15 @@ export default class PlansPage {
 
   onRefresh(): void {
     this.store.loadPlans();
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Actualizando',
+      detail: 'Recargando lista de planes...',
+      life: 2000,
+    });
   }
 
   onBack(): void {
-    this.router.navigate(['/dashboard']).then();
+    this.router.navigate(['/dashboard']);
   }
 }

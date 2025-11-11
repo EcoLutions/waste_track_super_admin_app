@@ -1,9 +1,9 @@
+<p-toast position="top-right"></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
 <div class="space-y-4">
   <!-- Breadcrumb -->
-  <app-breadcrumb
-    [items]="breadcrumbItems"
-    [loading]="store.isLoading()">
-  </app-breadcrumb>
+  <app-breadcrumb [items]="breadcrumbItems" [loading]="store.isLoading()"></app-breadcrumb>
 
   <!-- Page Header -->
   <app-page-header
@@ -17,50 +17,7 @@
     (refresh)="onRefresh()">
   </app-page-header>
 
-  <!-- Stats Cards -->
-  @if (!store.isLoading() && store.hasPlans()) {
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-            <i class="pi pi-list text-2xl text-green-600"></i>
-          </div>
-          <div class="flex-1 min-w-0">
-            <p class="text-sm text-gray-600">Total de Planes</p>
-            <p class="text-2xl font-bold text-gray-900">{{ store.plansCount() }}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-            <i class="pi pi-calendar text-2xl text-blue-600"></i>
-          </div>
-          <div class="flex-1 min-w-0">
-            <p class="text-sm text-gray-600">Planes Mensuales</p>
-            <p class="text-2xl font-bold text-gray-900">
-              {{ store.filteredPlans().length }}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-        <div class="flex items-center gap-4">
-          <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-            <i class="pi pi-calendar-plus text-2xl text-purple-600"></i>
-          </div>
-          <div class="flex-1 min-w-0">
-            <p class="text-sm text-gray-600">Planes Anuales</p>
-            <p class="text-2xl font-bold text-gray-900">
-              {{ store.filteredPlans().length }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  }
+  <p-divider></p-divider>
 
   <!-- Plan List -->
   <app-plan-list
