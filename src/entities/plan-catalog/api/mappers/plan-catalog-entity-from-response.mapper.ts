@@ -9,12 +9,12 @@ export class PlanCatalogEntityFromResponseMapper {
     return {
       id: dto.id ?? '',
       name: dto.name ?? '',
-      priceAmount: dto.priceAmount ?? 0,
+      priceAmount: dto.priceAmount ? Number(dto.priceAmount) : 0,
       priceCurrency: EnumMapper.mapStringToEnum(dto.priceCurrency, CurrencyEnum, CurrencyEnum.PEN),
       billingPeriod: EnumMapper.mapStringToEnum(dto.billingPeriod, BillingPeriodEnum, BillingPeriodEnum.MONTHLY),
-      maxVehicles: dto.maxVehicles ?? 0,
-      maxDrivers: dto.maxDrivers ?? 0,
-      maxContainers: dto.maxContainers ?? 0,
+      maxVehicles: dto.maxVehicles ? Number(dto.maxVehicles): 0,
+      maxDrivers: dto.maxDrivers ? Number(dto.maxDrivers): 0,
+      maxContainers: dto.maxContainers ? Number(dto.maxContainers): 0,
     };
   }
 }
