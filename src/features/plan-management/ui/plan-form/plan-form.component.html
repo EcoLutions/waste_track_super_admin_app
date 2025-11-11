@@ -1,0 +1,196 @@
+<div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+  <form [formGroup]="planForm" (ngSubmit)="onSubmit()" class="p-6 space-y-6">
+
+    <!-- Plan Name -->
+    <div class="space-y-2">
+      <label for="name" class="block text-sm font-semibold text-gray-700">
+        Nombre del Plan <span class="text-red-500">*</span>
+      </label>
+      <input
+        pInputText
+        id="name"
+        formControlName="name"
+        placeholder="Ej: Plan Básico"
+        class="w-full px-3 py-2.5 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors"
+        [ngClass]="{
+          'border-red-500': isFieldInvalid('name'),
+          'border-gray-300': !isFieldInvalid('name')
+        }" />
+      @if (isFieldInvalid('name')) {
+        <small class="text-red-600 flex items-center gap-1 text-xs">
+          <i class="pi pi-exclamation-circle"></i>
+          {{ getFieldError('name') }}
+        </small>
+      }
+    </div>
+
+    <!-- Price Section -->
+    <div class="space-y-4 p-5 bg-gray-50 rounded-lg border border-gray-200">
+      <h3 class="text-sm font-semibold text-gray-700 flex items-center gap-2">
+        <i class="pi pi-money-bill text-green-600"></i>
+        Configuración de Precio
+      </h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Currency -->
+        <div class="space-y-2">
+          <label for="priceCurrency" class="block text-sm font-medium text-gray-700">
+            Moneda <span class="text-red-500">*</span>
+          </label>
+          <p-select
+            inputId="priceCurrency"
+            formControlName="priceCurrency"
+            [options]="currencyOptions"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Seleccionar moneda"
+            [style]="{'width': '100%'}">
+            <ng-template #item let-currency>
+              <div class="flex items-center gap-2">
+                <span class="font-semibold text-gray-900">{{ currency.symbol }}</span>
+                <span class="text-gray-600 text-sm">{{ currency.label }}</span>
+              </div>
+            </ng-template>
+          </p-select>
+        </div>
+
+        <!-- Price Amount -->
+        <div class="space-y-2">
+          <label for="priceAmount" class="block text-sm font-medium text-gray-700">
+            Precio <span class="text-red-500">*</span>
+          </label>
+          <p-inputNumber
+            inputId="priceAmount"
+            formControlName="priceAmount"
+            mode="decimal"
+            [minFractionDigits]="2"
+            [maxFractionDigits]="2"
+            [min]="0.01"
+            [prefix]="selectedCurrencySymbol + ' '"
+            placeholder="0.00"
+            [style]="{'width': '100%'}"
+            inputStyleClass="w-full">
+          </p-inputNumber>
+          @if (isFieldInvalid('priceAmount')) {
+            <small class="text-red-600 flex items-center gap-1 text-xs">
+              <i class="pi pi-exclamation-circle"></i>
+              {{ getFieldError('priceAmount') }}
+            </small>
+          }
+        </div>
+      </div>
+
+      <!-- Billing Period -->
+      <div class="space-y-2">
+        <label for="billingPeriod" class="block text-sm font-medium text-gray-700">
+          Período de Facturación <span class="text-red-500">*</span>
+        </label>
+        <p-select
+          inputId="billingPeriod"
+          formControlName="billingPeriod"
+          [options]="billingPeriodOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Seleccionar período"
+          [style]="{'width': '100%'}">
+        </p-select>
+      </div>
+    </div>
+
+    <!-- Limits Section -->
+    <div class="space-y-4 p-5 bg-gray-50 rounded-lg border border-gray-200">
+      <h3 class="text-sm font-semibold text-gray-700 flex items-center gap-2">
+        <i class="pi pi-chart-bar text-green-600"></i>
+        Límites del Plan
+      </h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Max Vehicles -->
+        <div class="space-y-2">
+          <label for="maxVehicles" class="block text-sm font-medium text-gray-700">
+            <i class="pi pi-car text-gray-500 mr-1"></i>
+            Máx. Vehículos <span class="text-red-500">*</span>
+          </label>
+          <p-inputNumber
+            inputId="maxVehicles"
+            formControlName="maxVehicles"
+            [showButtons]="true"
+            [min]="1"
+            [max]="9999"
+            placeholder="0"
+            [style]="{'width': '100%'}"
+            inputStyleClass="w-full">
+          </p-inputNumber>
+          @if (isFieldInvalid('maxVehicles')) {
+            <small class="text-red-600 text-xs">{{ getFieldError('maxVehicles') }}</small>
+          }
+        </div>
+
+        <!-- Max Drivers -->
+        <div class="space-y-2">
+          <label for="maxDrivers" class="block text-sm font-medium text-gray-700">
+            <i class="pi pi-users text-gray-500 mr-1"></i>
+            Máx. Conductores <span class="text-red-500">*</span>
+          </label>
+          <p-inputNumber
+            inputId="maxDrivers"
+            formControlName="maxDrivers"
+            [showButtons]="true"
+            [min]="1"
+            [max]="9999"
+            placeholder="0"
+            [style]="{'width': '100%'}"
+            inputStyleClass="w-full">
+          </p-inputNumber>
+          @if (isFieldInvalid('maxDrivers')) {
+            <small class="text-red-600 text-xs">{{ getFieldError('maxDrivers') }}</small>
+          }
+        </div>
+
+        <!-- Max Containers -->
+        <div class="space-y-2">
+          <label for="maxContainers" class="block text-sm font-medium text-gray-700">
+            <i class="pi pi-box text-gray-500 mr-1"></i>
+            Máx. Contenedores <span class="text-red-500">*</span>
+          </label>
+          <p-inputNumber
+            inputId="maxContainers"
+            formControlName="maxContainers"
+            [showButtons]="true"
+            [min]="1"
+            [max]="9999"
+            placeholder="0"
+            [style]="{'width': '100%'}"
+            inputStyleClass="w-full">
+          </p-inputNumber>
+          @if (isFieldInvalid('maxContainers')) {
+            <small class="text-red-600 text-xs">{{ getFieldError('maxContainers') }}</small>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-200">
+      <button
+        type="button"
+        (click)="onCancel()"
+        [disabled]="loading()"
+        class="px-5 py-2.5 bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed">
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        [disabled]="loading() || planForm.invalid"
+        class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-green-600 to-green-700 hover:shadow-lg hover:shadow-green-600/30 text-white text-sm font-semibold rounded-lg shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed">
+        @if (loading()) {
+          <i class="pi pi-spinner pi-spin text-sm"></i>
+        } @else {
+          <i class="pi pi-check text-sm"></i>
+        }
+        <span>{{ isEditMode ? 'Actualizar' : 'Crear' }} Plan</span>
+      </button>
+    </div>
+
+  </form>
+</div>
