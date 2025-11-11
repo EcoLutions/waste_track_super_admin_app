@@ -1,9 +1,9 @@
-import { Routes } from '@angular/router';
-import { LoginPage } from '@pages/authentication/ui/login/login.page';
-import { authGuard, roleGuard } from '../shared';
-import { DashboardPage } from '@pages/dashboard/ui/dashboard/dashboard.page';
-import { AdminLayoutComponent } from '@features/layout/ui/admin-layout/admin-layout.component';
-import { NotFoundPage } from '@pages/authentication/ui/not-found/not-found.page';
+import {Routes} from '@angular/router';
+import {LoginPage} from '@pages/authentication/ui/login/login.page';
+import {authGuard, roleGuard} from '../shared';
+import {DashboardPage} from '@pages/dashboard/ui/dashboard/dashboard.page';
+import {AdminLayoutComponent} from '@features/layout/ui/admin-layout/admin-layout.component';
+import {NotFoundPage} from '@pages/authentication/ui/not-found/not-found.page';
 
 export const routes: Routes = [
   // ==================== PUBLIC PAGES ====================
@@ -24,6 +24,12 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardPage,
+      },
+
+      // ==================== PLANS ====================
+      {
+        path: 'planes',
+        loadComponent: () => import('@pages/plans/ui/plans/plans.page'),
       },
     ],
   },
