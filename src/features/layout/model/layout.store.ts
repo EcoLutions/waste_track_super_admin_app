@@ -78,7 +78,7 @@ const initialState: LayoutState = {
       ],
     },
     { label: 'separator-2', separator: true, icon: '' },
-    { label: 'Planes', routerLink: '/planes', icon: 'pi pi-dollar', ariaLabel: 'Catálogo de planes' },
+    { label: 'Planes', routerLink: '/plans', icon: 'pi pi-dollar', ariaLabel: 'Catálogo de planes' },
 /*
     { label: 'Reportes', routerLink: '/reports', icon: 'pi pi-file-pdf', ariaLabel: 'Reportes de negocio' },
 */
