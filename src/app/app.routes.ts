@@ -28,8 +28,21 @@ export const routes: Routes = [
 
       // ==================== PLANS ====================
       {
-        path: 'planes',
-        loadComponent: () => import('@pages/plans/ui/plans/plans.page'),
+        path: 'plans',
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('@pages/plans/ui/plans/plans.page'),
+          },
+          {
+            path: 'create',
+            loadComponent: () => import('@pages/plan-create-edit/ui/plan-form/plan-form.page'),
+          },
+          {
+            path: 'edit/:id',
+            loadComponent: ()=> import('@pages/plan-create-edit/ui/plan-form/plan-form.page'),
+          },
+        ],
       },
     ],
   },
