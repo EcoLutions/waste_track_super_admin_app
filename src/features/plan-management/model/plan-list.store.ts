@@ -1,8 +1,9 @@
-import {computed, inject} from '@angular/core';
-import {patchState, signalStore, withComputed, withMethods, withState} from '@ngrx/signals';
-import {PlanCatalogEntity} from '@entities/plan-catalog/model';
-import {PlanCatalogService} from '@entities/plan-catalog/api';
-import {firstValueFrom} from 'rxjs';
+import { computed, inject } from '@angular/core';
+import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
+import { PlanCatalogEntity } from '@entities/plan-catalog/model';
+import { PlanCatalogService } from '@entities/plan-catalog/api';
+import { BillingPeriodEnum } from '@shared/model';
+import { firstValueFrom } from 'rxjs';
 
 interface PlanListState {
   plans: PlanCatalogEntity[];
@@ -17,7 +18,7 @@ const initialState: PlanListState = {
   selectedPlan: null,
   searchTerm: '',
   isLoading: false,
-  error: null
+  error: null,
 };
 
 export const PlanListStore = signalStore(
@@ -30,10 +31,16 @@ export const PlanListStore = signalStore(
 
       if (!term) return plans;
 
-      return plans.filter(plan =>
-        plan.name.toLowerCase().includes(term)
-      );
+      return plans.filter((plan) => plan.name.toLowerCase().includes(term));
     }),
+
+    monthlyPlans: computed(() =>
+      store.plans().filter((plan) => plan.billingPeriod === BillingPeriodEnum.MONTHLY)
+    ),
+
+    yearlyPlans: computed(() =>
+      store.plans().filter((plan) => plan.billingPeriod === BillingPeriodEnum.YEARLY)
+    ),
   })),
 
   withComputed((store) => ({
@@ -41,6 +48,9 @@ export const PlanListStore = signalStore(
     hasFilteredPlans: computed(() => store.filteredPlans().length > 0),
     plansCount: computed(() => store.plans().length),
     filteredPlansCount: computed(() => store.filteredPlans().length),
+    monthlyPlansCount: computed(() => store.monthlyPlans().length),
+    yearlyPlansCount: computed(() => store.yearlyPlans().length),
+    isSearching: computed(() => store.searchTerm().trim().length > 0),
   })),
 
   withMethods((store) => {
@@ -55,55 +65,14 @@ export const PlanListStore = signalStore(
           patchState(store, {
             plans,
             isLoading: false,
-            error: null
+            error: null,
           });
         } catch (error: any) {
           patchState(store, {
             error: error.message || 'Error al cargar los planes',
             isLoading: false,
-            plans: []
+            plans: [],
           });
-        }
-      },
-
-      async createPlan(plan: PlanCatalogEntity): Promise<void> {
-        patchState(store, { isLoading: true, error: null });
-
-        try {
-          const newPlan = await firstValueFrom(planService.create(plan));
-          patchState(store, {
-            plans: [...store.plans(), newPlan],
-            isLoading: false,
-            error: null
-          });
-        } catch (error: any) {
-          patchState(store, {
-            error: error.message || 'Error al crear el plan',
-            isLoading: false
-          });
-          throw error;
-        }
-      },
-
-      async updatePlan(plan: Partial<PlanCatalogEntity>): Promise<void> {
-        patchState(store, { isLoading: true, error: null });
-
-        try {
-          const updatedPlan = await firstValueFrom(planService.update(plan));
-          const updatedPlans = store.plans().map(p =>
-            p.id === updatedPlan.id ? updatedPlan : p
-          );
-          patchState(store, {
-            plans: updatedPlans,
-            isLoading: false,
-            error: null
-          });
-        } catch (error: any) {
-          patchState(store, {
-            error: error.message || 'Error al actualizar el plan',
-            isLoading: false
-          });
-          throw error;
         }
       },
 
@@ -112,16 +81,18 @@ export const PlanListStore = signalStore(
 
         try {
           await firstValueFrom(planService.delete(id));
-          const updatedPlans = store.plans().filter(p => p.id !== id);
+          const updatedPlans = store.plans().filter((p) => p.id !== id);
+
           patchState(store, {
             plans: updatedPlans,
+            selectedPlan: store.selectedPlan()?.id === id ? null : store.selectedPlan(),
             isLoading: false,
-            error: null
+            error: null,
           });
         } catch (error: any) {
           patchState(store, {
             error: error.message || 'Error al eliminar el plan',
-            isLoading: false
+            isLoading: false,
           });
           throw error;
         }
@@ -139,9 +110,13 @@ export const PlanListStore = signalStore(
         patchState(store, { error: null });
       },
 
+      clearSearch(): void {
+        patchState(store, { searchTerm: '' });
+      },
+
       reset(): void {
         patchState(store, initialState);
-      }
+      },
     };
   })
 );
