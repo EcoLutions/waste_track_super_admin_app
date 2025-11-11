@@ -1,0 +1,57 @@
+<p-toast position="top-right"></p-toast>
+
+<div class="space-y-4">
+  <!-- Breadcrumb -->
+  <app-breadcrumb
+    class="mb-4"
+    [items]="breadcrumbItems"
+    [loading]="store.isLoading()">
+  </app-breadcrumb>
+
+  <!-- Page Header -->
+  <app-page-header
+    [title]="pageTitle"
+    [subtitle]="pageSubtitle"
+    [loading]="store.isLoading()"
+    [showBackButton]="true"
+    [showRefreshButton]="false"
+    (back)="onBack()">
+  </app-page-header>
+
+  <p-divider></p-divider>
+
+  <!-- Form -->
+  @if (store.isLoading()) {
+    <!-- Loading Skeleton -->
+    <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+      <div class="space-y-6">
+        <div class="space-y-2">
+          <div class="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
+          <div class="h-10 w-full bg-gray-200 rounded animate-pulse"></div>
+        </div>
+        <div class="space-y-4 p-5 bg-gray-50 rounded-lg border border-gray-200">
+          <div class="h-4 w-48 bg-gray-200 rounded animate-pulse"></div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="h-10 bg-gray-200 rounded animate-pulse"></div>
+            <div class="h-10 bg-gray-200 rounded animate-pulse"></div>
+          </div>
+        </div>
+        <div class="space-y-4 p-5 bg-gray-50 rounded-lg border border-gray-200">
+          <div class="h-4 w-48 bg-gray-200 rounded animate-pulse"></div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="h-10 bg-gray-200 rounded animate-pulse"></div>
+            <div class="h-10 bg-gray-200 rounded animate-pulse"></div>
+            <div class="h-10 bg-gray-200 rounded animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <app-plan-form
+      [plan]="store.plan()"
+      [loading]="store.isSaving()"
+      (formSubmit)="onFormSubmit($event)"
+      (formCancel)="onFormCancel()">
+    </app-plan-form>
+  }
+</div>
