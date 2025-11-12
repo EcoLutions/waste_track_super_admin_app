@@ -200,7 +200,7 @@ import {BillingPeriodMapper} from '@shared/model/mappers/billing-period.mapper';
             class="bg-gradient-to-r from-green-600 to-green-700 border-0"
             [disabled]="form.invalid || loading()"
           >
-            <span pButtonLabel></span>
+            <span pButtonLabel>Guardar Distrito</span>
             <i pButtonIcon [ngClass]="loading() ? 'pi pi-spinner pi-spin' : 'pi pi-check'"></i>
           </button>
         </div>

@@ -7,7 +7,7 @@ export class CreateDistrictRequestFromEntityMapper {
       name: entity.name,
       code: entity.code,
       primaryAdminEmail: entity.primaryAdminEmail,
-      primaryAdminUsername: entity.primaryAdminEmail,
+      primaryAdminUsername: entity.primaryAdminUsername,
       planId: entity.planId,
     };
   }
