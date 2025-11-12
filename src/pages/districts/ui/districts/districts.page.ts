@@ -9,6 +9,7 @@ import {ToastModule} from 'primeng/toast';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {DistrictEntity} from '@entities/district/model';
+import {Divider} from 'primeng/divider';
 
 @Component({
   selector: 'app-districts-page',
@@ -20,6 +21,7 @@ import {DistrictEntity} from '@entities/district/model';
     DistrictListComponent,
     ToastModule,
     ConfirmDialogModule,
+    Divider,
   ],
   providers: [DistrictListStore, MessageService, ConfirmationService],
   template: `
@@ -39,6 +41,8 @@ import {DistrictEntity} from '@entities/district/model';
         [primaryActions]="headerActions"
         (back)="handleBack()"
       />
+
+      <p-divider/>
 
       <!-- District List -->
       <app-district-list

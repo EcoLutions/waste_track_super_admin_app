@@ -24,25 +24,33 @@ import {Tooltip} from 'primeng/tooltip';
     <div class="space-y-4">
       <!-- Search Bar -->
       <div class="flex gap-3">
-        <span class="p-input-icon-left flex-1">
-          <i class="pi pi-search"></i>
+        <div class="relative flex-1">
+          <i class="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
           <input
-            pInputText
             type="text"
             [value]="searchTerm()"
             (input)="onSearchChange($event)"
             placeholder="Buscar por nombre, código o plan..."
-            class="w-full"
+            [class]="searchTerm()
+        ? 'w-full pl-10 pr-4 py-2.5 border-2 border-green-500 bg-green-50 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-600 outline-none transition-all duration-200 text-gray-900 placeholder-gray-500'
+        : 'w-full pl-10 pr-4 py-2.5 border border-gray-300 bg-white rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 hover:border-gray-400'"
           />
+          @if (searchTerm()) {
+            <div class="absolute right-3 top-1/2 -translate-y-1/2">
+        <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-green-700 bg-green-100 rounded-full">
+          Filtrando
         </span>
+            </div>
+          }
+        </div>
         @if (searchTerm()) {
           <button
-            pButton
-            class="p-button-text"
+            type="button"
             (click)="onClearSearch()"
+            class="inline-flex items-center gap-2 px-4 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-red-50 hover:text-red-700 hover:border-red-300 transition-all duration-200 font-medium shadow-sm hover:shadow"
           >
-            <span pButtonLabel>Limpiar</span>
-            <i pButtonIcon class="pi pi-times"></i>
+            <i class="pi pi-times text-sm"></i>
+            <span class="hidden sm:inline">Limpiar</span>
           </button>
         }
       </div>
