@@ -39,6 +39,7 @@ import {Divider} from 'primeng/divider';
         [loading]="store.isLoading()"
         [showBackButton]="true"
         [primaryActions]="headerActions"
+        (refresh)="handleRefresh()"
         (back)="handleBack()"
       />
 
@@ -130,5 +131,9 @@ export class DistrictsPage implements OnInit {
 
   handleBack(): void {
     this.router.navigate(['/dashboard']).then();
+  }
+
+  handleRefresh(): void {
+    this.store.loadDistricts();
   }
 }

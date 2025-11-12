@@ -2,7 +2,7 @@ import {Component, effect, inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {BreadcrumbComponent, BreadcrumbItem} from '@shared/ui/breadcrumb/breadcrumb.component';
 import {PageHeaderAction, PageHeaderComponent} from '@shared/ui/page-header/page-header.component';
-import {PlanListStore} from '@features/plan-management/model/plan-list.store'; // ✅ CORREGIDO
+import {PlanListStore} from '@features/plan-management/model/plan-list.store';
 import {PlanCatalogEntity} from '@entities/plan-catalog/model';
 import {ToastModule} from 'primeng/toast';
 import {ConfirmationService, MessageService} from 'primeng/api';
@@ -22,14 +22,14 @@ import {Divider} from 'primeng/divider';
     PlanListComponent,
     Divider,
   ],
-  providers: [PlanListStore, MessageService, ConfirmationService],  // ✅ CORREGIDO
+  providers: [PlanListStore, MessageService, ConfirmationService],
   templateUrl: './plans.page.html',
 })
 export default class PlansPage {
   private router = inject(Router);
   private messageService = inject(MessageService);
   private confirmationService = inject(ConfirmationService);
-  readonly store = inject(PlanListStore);  // ✅ CORREGIDO
+  readonly store = inject(PlanListStore);
 
   breadcrumbItems: BreadcrumbItem[] = [
     { label: 'Inicio', route: '/dashboard', icon: 'pi pi-home' },
@@ -64,7 +64,7 @@ export default class PlansPage {
   }
 
   onCreatePlan(): void {
-    this.router.navigate(['/plans/create']).then( );
+    this.router.navigate(['/plans/create']).then();
   }
 
   onPlanSelected(plan: PlanCatalogEntity): void {
@@ -119,6 +119,6 @@ export default class PlansPage {
   }
 
   onBack(): void {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard']).then();
   }
 }
