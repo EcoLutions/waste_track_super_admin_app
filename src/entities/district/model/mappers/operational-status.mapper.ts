@@ -10,13 +10,13 @@ export class OperationalStatusMapper {
     return labels[status] || status;
   }
 
-  static toSeverity(status: OperationalStatusEnum): 'success' | 'warning' | 'danger' {
-    const severities: Record<OperationalStatusEnum, 'success' | 'warning' | 'danger'> = {
+  static toSeverity(status: OperationalStatusEnum): 'success' | 'warn' | 'danger' {
+    const severities: Record<OperationalStatusEnum, 'success' | 'warn' | 'danger'> = {
       [OperationalStatusEnum.ACTIVE]: 'success',
       [OperationalStatusEnum.SUSPENDED]: 'danger',
-      [OperationalStatusEnum.TRIAL]: 'warning',
+      [OperationalStatusEnum.TRIAL]: 'warn',
     };
-    return severities[status] || 'warning';
+    return severities[status] || 'warn';
   }
 
   static toColor(status: OperationalStatusEnum): string {
