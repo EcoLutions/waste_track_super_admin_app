@@ -44,6 +44,21 @@ export const routes: Routes = [
           },
         ],
       },
+
+      // ==================== DISTRICTS ====================
+      {
+        path: 'districts',
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('@pages/districts/ui/districts/districts.page').then(p => p.DistrictsPage),
+          },
+          {
+            path: 'create',
+            loadComponent: () => import('@pages/district-create/ui/district-form/district-form.page').then(p => p.DistrictFormPage),
+          },
+        ],
+      }
     ],
   },
 
