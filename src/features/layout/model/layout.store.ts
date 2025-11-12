@@ -53,7 +53,7 @@ const initialState: LayoutState = {
       ariaLabel: 'Gestión de distritos',
       items: [
         { label: 'Todos los Distritos', routerLink: '/districts', icon: 'pi pi-list', ariaLabel: 'Ver todos los distritos' },
-        { label: 'Crear Distrito', routerLink: '/districts/new', icon: 'pi pi-plus-circle', ariaLabel: 'Crear nuevo distrito' },
+        { label: 'Crear Distrito', routerLink: '/districts/create', icon: 'pi pi-plus-circle', ariaLabel: 'Crear nuevo distrito' },
       ],
     },
     {
