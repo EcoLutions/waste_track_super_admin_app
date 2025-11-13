@@ -5,7 +5,7 @@ export class BillingPeriodToStringMapper {
     switch (period) {
       case BillingPeriodEnum.MONTHLY:
         return 'Mensual';
-      case BillingPeriodEnum.YEARLY:
+      case BillingPeriodEnum.ANNUAL:
         return 'Anual';
       default:
         return 'Desconocido';

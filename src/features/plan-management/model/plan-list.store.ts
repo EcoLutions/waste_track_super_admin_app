@@ -39,7 +39,7 @@ export const PlanListStore = signalStore(
     ),
 
     yearlyPlans: computed(() =>
-      store.plans().filter((plan) => plan.billingPeriod === BillingPeriodEnum.YEARLY)
+      store.plans().filter((plan) => plan.billingPeriod === BillingPeriodEnum.ANNUAL)
     ),
   })),
 

@@ -47,7 +47,7 @@ export class PlanFormComponent {
 
   billingPeriodOptions: BillingPeriodOption[] = [
     { label: BillingPeriodMapper.toLabel(BillingPeriodEnum.MONTHLY), value: BillingPeriodEnum.MONTHLY },
-    { label: BillingPeriodMapper.toLabel(BillingPeriodEnum.YEARLY), value: BillingPeriodEnum.YEARLY },
+    { label: BillingPeriodMapper.toLabel(BillingPeriodEnum.ANNUAL), value: BillingPeriodEnum.ANNUAL },
   ];
 
   currencyOptions: CurrencyOption[] = [
