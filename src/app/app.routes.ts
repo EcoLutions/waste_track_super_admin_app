@@ -63,7 +63,7 @@ export const routes: Routes = [
           },
           {
             path: 'create',
-            loadComponent: () => import('@pages/district-create/ui/district-form/district-form.page').then(p => p.DistrictFormPage),
+            loadComponent: () => import('@pages/devices/ui/devices-create/devices-create.page').then(p => p.DeviceCreatePage),
           },
         ],
       }
