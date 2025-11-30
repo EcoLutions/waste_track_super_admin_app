@@ -1,4 +1,4 @@
-import {Component, computed, inject, output} from '@angular/core';
+import {Component, computed, inject, output, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Router, RouterModule} from '@angular/router';
 import {LayoutStore, NavItem} from '../../model/layout.store';
@@ -15,6 +15,8 @@ export class SidebarComponent {
   private router = inject(Router);
   readonly authStore = inject(AuthStore);
   readonly layoutStore = inject(LayoutStore);
+
+  showUserMenu = signal(false);
 
   itemClick = output<NavItem>();
   logout = output<void>();
@@ -71,11 +73,12 @@ export class SidebarComponent {
     }
   }
 
-  onLogout(): void {
-    this.logout.emit();
+  toggleUserMenu(): void {
+    this.showUserMenu.update(value => !value);
   }
 
-  onNavigateToSettings(): void {
-    this.navigateToSettings.emit();
+  onLogout(): void {
+    this.showUserMenu.set(false);
+    this.logout.emit();
   }
 }

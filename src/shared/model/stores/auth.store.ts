@@ -154,7 +154,7 @@ export const AuthStore = signalStore(
               error: null,
             });
 
-            const returnUrl = router.routerState.snapshot.root.queryParams['returnUrl'] || '/dashboard';
+            const returnUrl = router.routerState.snapshot.root.queryParams['returnUrl'] || '/districts';
             await router.navigate([returnUrl]);
           } else {
             patchState(store, {
