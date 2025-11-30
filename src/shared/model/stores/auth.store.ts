@@ -237,7 +237,7 @@ export const AuthStore = signalStore(
               error: null,
             });
 
-            await router.navigate(['/dashboard']);
+            await router.navigate(['/districts']);
           } else {
             patchState(store, {
               isLoading: false,

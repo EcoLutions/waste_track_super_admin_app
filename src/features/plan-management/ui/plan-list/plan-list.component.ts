@@ -46,11 +46,6 @@ export class PlanListComponent {
     this.planEdit.emit(plan);
   }
 
-  onDeletePlan(plan: PlanCatalogEntity, event: Event): void {
-    event.stopPropagation();
-    this.planDelete.emit(plan);
-  }
-
   trackById(_: number, plan: PlanCatalogEntity): string {
     return plan.id;
   }
