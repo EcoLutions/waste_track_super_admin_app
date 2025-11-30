@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Observable, map, retry } from 'rxjs';
-import { BaseService } from '../../../../shared';
-import { UserEntity } from '../../model';
-import { AuthenticatedUserResponse } from '../types/authenticated-user-response.type';
-import { SignInRequest } from '../types/sign-in-request.type';
-import { AuthenticatedUserFromResponseMapper } from '../mappers/authenticated-user-from-response.mapper';
+import {Injectable} from '@angular/core';
+import {map, Observable, retry} from 'rxjs';
+import {BaseService} from '@shared/api';
+import {UserEntity} from '../../model';
 import {
-  SignInRequestFromCredentialsMapper,
+  AuthenticatedUserFromResponseMapper,
+  AuthenticatedUserResponse,
   SignInCredentials,
-} from '../mappers/sign-in-request-from-credentials.mapper';
-import { catchError } from 'rxjs/operators';
+  SignInRequest,
+  SignInRequestFromCredentialsMapper
+} from '@entities/user/api';
+import {catchError} from 'rxjs/operators';
+import {HttpParams} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -45,5 +46,13 @@ export class AuthenticationService extends BaseService {
         retry(2),
         catchError(this.handleError),
       );
+  }
+
+  forgotPassword(email: string): Observable<void> {
+    const params = new HttpParams().set('email', email);
+    return this.http.post<void>(`${this.resourcePath()}/forgot-password`, null,  { ...this.httpOptions, params: params }).pipe(
+      retry(2),
+      catchError(this.handleError)
+    );
   }
 }
