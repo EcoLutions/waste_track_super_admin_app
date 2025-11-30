@@ -28,7 +28,6 @@ import {Divider} from 'primeng/divider';
 export default class PlansPage {
   private router = inject(Router);
   private messageService = inject(MessageService);
-  private confirmationService = inject(ConfirmationService);
   readonly store = inject(PlanListStore);
 
   breadcrumbItems: BreadcrumbItem[] = [
@@ -73,35 +72,6 @@ export default class PlansPage {
 
   onPlanEdit(plan: PlanCatalogEntity): void {
     this.router.navigate(['/plans/edit', plan.id]).then();
-  }
-
-  onPlanDelete(plan: PlanCatalogEntity): void {
-    this.confirmationService.confirm({
-      header: 'Confirmar Eliminación',
-      message: `¿Estás seguro de que deseas eliminar el plan "${plan.name}"? Esta acción no se puede deshacer.`,
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Sí, eliminar',
-      rejectLabel: 'Cancelar',
-      acceptButtonStyleClass: 'p-button-danger',
-      accept: async () => {
-        try {
-          await this.store.deletePlan(plan.id);
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Plan Eliminado',
-            detail: `El plan "${plan.name}" ha sido eliminado exitosamente.`,
-            life: 4000,
-          });
-        } catch (error) {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error al Eliminar',
-            detail: 'No se pudo eliminar el plan. Inténtalo de nuevo.',
-            life: 5000,
-          });
-        }
-      },
-    });
   }
 
   onSearchTermChange(searchTerm: string): void {

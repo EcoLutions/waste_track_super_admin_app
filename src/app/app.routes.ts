@@ -51,6 +51,21 @@ export const routes: Routes = [
             loadComponent: () => import('@pages/district-create/ui/district-form/district-form.page').then(p => p.DistrictFormPage),
           },
         ],
+      },
+
+      // ==================== DEVICE ====================
+      {
+        path: 'iot-devices',
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('@pages/devices/ui/devices/devices.page').then(p => p.DevicesPage),
+          },
+          {
+            path: 'create',
+            loadComponent: () => import('@pages/district-create/ui/district-form/district-form.page').then(p => p.DistrictFormPage),
+          },
+        ],
       }
     ],
   },

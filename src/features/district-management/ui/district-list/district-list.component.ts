@@ -1,12 +1,11 @@
-import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Component, input, output} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DistrictEntity, OperationalStatusMapper} from '@entities/district/model';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { SkeletonModule } from 'primeng/skeleton';
-import {Tooltip} from 'primeng/tooltip';
+import {InputTextModule} from 'primeng/inputtext';
+import {ButtonModule} from 'primeng/button';
+import {TableModule} from 'primeng/table';
+import {TagModule} from 'primeng/tag';
+import {SkeletonModule} from 'primeng/skeleton';
 
 @Component({
   selector: 'app-district-list',
@@ -18,7 +17,6 @@ import {Tooltip} from 'primeng/tooltip';
     TableModule,
     TagModule,
     SkeletonModule,
-    Tooltip,
   ],
   template: `
     <div class="space-y-4">
@@ -89,7 +87,6 @@ import {Tooltip} from 'primeng/tooltip';
                 <th class="font-semibold">Vehículos</th>
                 <th class="font-semibold">Conductores</th>
                 <th class="font-semibold">Contenedores</th>
-                <th class="font-semibold">Acciones</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-district>
@@ -125,19 +122,6 @@ import {Tooltip} from 'primeng/tooltip';
                   <span class="text-gray-600">
                     {{ district.currentContainerCount }}/{{ district.maxContainers }}
                   </span>
-                </td>
-                <td>
-                  <div class="flex gap-2">
-                    <button
-                      pButton
-                      class="p-button-rounded p-button-text p-button-danger"
-                      (click)="onDelete(district)"
-                      [pTooltip]="'Eliminar'"
-                      tooltipPosition="top"
-                    >
-                      <i class="pi pi-trash"></i>
-                    </button>
-                  </div>
                 </td>
               </tr>
             </ng-template>

@@ -93,13 +93,6 @@
                       [attr.aria-label]="'Editar ' + plan.name">
                       <i class="pi pi-pencil text-sm"></i>
                     </button>
-                    <button
-                      type="button"
-                      (click)="onDeletePlan(plan, $event)"
-                      class="p-2 text-gray-600 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors"
-                      [attr.aria-label]="'Eliminar ' + plan.name">
-                      <i class="pi pi-trash text-sm"></i>
-                    </button>
                   </div>
                 </td>
               </tr>
@@ -157,14 +150,6 @@
                   [attr.aria-label]="'Editar ' + plan.name">
                   <i class="pi pi-pencil text-xs"></i>
                   <span>Editar</span>
-                </button>
-                <button
-                  type="button"
-                  (click)="onDeletePlan(plan, $event)"
-                  class="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium rounded-lg transition-colors"
-                  [attr.aria-label]="'Eliminar ' + plan.name">
-                  <i class="pi pi-trash text-xs"></i>
-                  <span>Eliminar</span>
                 </button>
               </div>
             </div>
