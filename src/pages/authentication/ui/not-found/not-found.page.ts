@@ -11,7 +11,7 @@ export class NotFoundPage {
   constructor(private router: Router) {}
 
   goToDashboard(): void {
-    this.router.navigate(['/dashboard']).then();
+    this.router.navigate(['/districts']).then();
   }
 
   goBack(): void {

@@ -34,20 +34,6 @@ const initialState: LayoutState = {
   expandedItems: new Set<string>(),
   navItems: [
     {
-      label: 'Dashboard',
-      routerLink: '/dashboard',
-      icon: 'pi pi-chart-line',
-      ariaLabel: 'Panel principal',
-    },
-    {
-      label: 'Notificaciones',
-      routerLink: '/notifications',
-      icon: 'pi pi-bell',
-      badge: 3,
-      ariaLabel: '3 notificaciones nuevas',
-    },
-    { label: 'separator-1', separator: true, icon: '' },
-    {
       label: 'Distritos',
       icon: 'pi pi-map-marker',
       ariaLabel: 'Gestión de distritos',
@@ -56,32 +42,26 @@ const initialState: LayoutState = {
         { label: 'Crear Distrito', routerLink: '/districts/create', icon: 'pi pi-plus-circle', ariaLabel: 'Crear nuevo distrito' },
       ],
     },
+    { label: 'separator-2', separator: true, icon: '' },
     {
-      label: 'Subscripciones',
-      icon: 'pi pi-credit-card',
-      ariaLabel: 'Gestión de subscripciones',
+      label: 'Dispositivos IOT',
+      icon: 'pi pi-trash',
+      ariaLabel: 'Gestion de dispositivos IOT',
       items: [
-        { label: 'Todas', routerLink: '/subscriptions', icon: 'pi pi-list', ariaLabel: 'Ver todas' },
-        { label: 'Renovaciones', routerLink: '/subscriptions/renewals', icon: 'pi pi-calendar', ariaLabel: 'Próximas renovaciones' },
-        { label: 'Vencidas', routerLink: '/subscriptions/expired', icon: 'pi pi-exclamation-triangle', ariaLabel: 'Subscripciones vencidas' },
-      ],
-    },
-    {
-      label: 'Billing',
-      icon: 'pi pi-dollar',
-      ariaLabel: 'Gestión financiera',
-      items: [
-        { label: 'Vista General', routerLink: '/billing', icon: 'pi pi-chart-bar', ariaLabel: 'Vista general' },
-        { label: 'Pagos', routerLink: '/billing/payments', icon: 'pi pi-history', ariaLabel: 'Historial de pagos' },
-        { label: 'Facturas', routerLink: '/billing/invoices', icon: 'pi pi-file', ariaLabel: 'Facturas' },
-        { label: 'Pagos Fallidos', routerLink: '/billing/failed-payments', icon: 'pi pi-times-circle', ariaLabel: 'Pagos fallidos' },
-      ],
+        { label: 'Todos los Dispositivos', routerLink: '/iot-devices', icon: 'pi pi-list', ariaLabel: 'Ver todos los dispositivos' },
+        { label: 'Crear Dispositivo', routerLink: '/iot-devices/create', icon: 'pi pi-plus-circle', ariaLabel: 'Crear nuevo dispositivo' },
+      ]
     },
     { label: 'separator-2', separator: true, icon: '' },
-    { label: 'Planes', routerLink: '/plans', icon: 'pi pi-dollar', ariaLabel: 'Catálogo de planes' },
-/*
-    { label: 'Reportes', routerLink: '/reports', icon: 'pi pi-file-pdf', ariaLabel: 'Reportes de negocio' },
-*/
+    {
+      label: 'Planes',
+      icon: 'pi pi-dollar',
+      ariaLabel: 'Catálogo de planes',
+      items: [
+        { label: 'Todos los Planes', routerLink: '/plans', icon: 'pi pi-list', ariaLabel: 'Ver todos los planes' },
+        { label: 'Crear Plan', routerLink: '/plans/create', icon: 'pi pi-plus-circle', ariaLabel: 'Crear nuevo plan' },
+      ]
+    },
     { label: 'separator-3', separator: true, icon: '' },
   ],
 };
