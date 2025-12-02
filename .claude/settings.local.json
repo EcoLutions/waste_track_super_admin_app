@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ng g c:*)",
+      "Bash(move plan-list.ts plan-list.component.ts)",
+      "Bash(move:*)",
+      "Bash(move plan-list.css plan-list.component.css)",
+      "WebSearch",
+      "WebFetch(domain:primeng.org)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

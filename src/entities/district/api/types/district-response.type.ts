@@ -1,0 +1,20 @@
+export interface DistrictResponse {
+  id: string | null;
+  name: string | null;
+  code: string | null;
+  operationalStatus: string | null;
+  serviceStartDate: string | null;
+  planId: string | null;
+  planName: string | null;
+  maxVehicles: number | null;
+  maxDrivers: number | null;
+  maxContainers: number | null;
+  currency: string | null;
+  price: number | null;
+  billingPeriod: string | null;
+  currentVehicleCount: number | null;
+  currentDriverCount: number | null;
+  currentContainerCount: number | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+}

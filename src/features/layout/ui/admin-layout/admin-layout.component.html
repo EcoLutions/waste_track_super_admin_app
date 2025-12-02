@@ -1,0 +1,32 @@
+<div class="min-h-screen bg-gray-50 flex">
+  <app-sidebar
+    (itemClick)="handleNavigation($event)"
+    (logout)="handleLogout()"
+    (navigateToSettings)="handleNavigateToSettings()"
+    (navigateToNotifications)="handleNavigateToNotifications()"
+  >
+  </app-sidebar>
+
+  <main
+    class="flex-1 overflow-y-auto transition-all duration-300"
+    [ngClass]="{
+      'lg:ml-64': !layoutStore.isSidebarCollapsed(),
+      'lg:ml-16': layoutStore.isSidebarCollapsed()
+    }"
+  >
+    <div class="h-full p-4 lg:p-6">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  @if (layoutStore.isMobile()) {
+    <button
+      type="button"
+      (click)="layoutStore.toggleSidebar()"
+      aria-label="Abrir menú"
+      class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-600 hover:bg-green-700 text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 focus:outline-none focus-visible:ring-4 focus-visible:ring-green-300"
+    >
+      <i [class]="layoutStore.isSidebarOpen() ? 'pi pi-times' : 'pi pi-bars'" class="text-xl"></i>
+    </button>
+  }
+</div>

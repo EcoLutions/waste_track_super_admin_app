@@ -1,0 +1,208 @@
+<aside
+  id="main-sidebar"
+  role="region"
+  aria-label="Menú principal"
+  [class.translate-x-0]="layoutStore.isSidebarOpen()"
+  [class.-translate-x-full]="!layoutStore.isSidebarOpen()"
+  [class.w-64]="!layoutStore.isSidebarCollapsed()"
+  [class.w-16]="layoutStore.isSidebarCollapsed()"
+  class="fixed inset-y-0 left-0 z-50 bg-white border-r border-gray-200 flex flex-col transition-all duration-300 ease-in-out lg:translate-x-0 shadow-xl lg:shadow-none"
+>
+  <div class="h-16 flex items-center justify-between border-b border-gray-200 flex-shrink-0"
+       [class.px-4]="!layoutStore.isSidebarCollapsed()"
+  >
+    @if (!layoutStore.isSidebarCollapsed()) {
+      <div class="flex items-center gap-3">
+        <img src="assets/images/logo.png" alt="WasteTrack" class="h-10 w-10" />
+        <span class="font-bold text-gray-900 text-sm">WasteTrack</span>
+      </div>
+    } @else {
+      <img src="assets/images/logo-with-name.png" alt="WasteTrack" class="h-10 w-10 mx-auto" />
+    }
+
+    <button
+      type="button"
+      (click)="layoutStore.toggleSidebarCollapse()"
+      aria-label="Colapsar menú"
+      [class.active]="layoutStore.isSidebarCollapsed()"
+      class="hidden lg:flex absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 bg-white text-gray-500 shadow-md hover:bg-gray-100 hover:text-gray-700 transition-all duration-200 active:scale-95 group lg:-right-3"
+    >
+      <i
+        [class]="layoutStore.isSidebarCollapsed() ? 'pi pi-angle-right' : 'pi pi-angle-left'"
+        class="text-sm transition-transform duration-200"
+      ></i>
+    </button>
+
+    <button
+      type="button"
+      (click)="layoutStore.closeSidebar()"
+      aria-label="Cerrar menú"
+      class="lg:hidden w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+    >
+      <i class="pi pi-times text-lg"></i>
+    </button>
+  </div>
+
+  <nav class="flex-1 overflow-y-auto scrollbar-thin px-3 py-4">
+    <ul class="space-y-1">
+      @for (item of layoutStore.navItems(); track item.label) {
+        <li>
+          @if (item.separator) {
+            <div class="my-3 border-t border-gray-200"></div>
+          } @else {
+            <div>
+              @if (item.items && item.items.length > 0) {
+                <button
+                  type="button"
+                  [attr.aria-label]="item.ariaLabel"
+                  [attr.aria-expanded]="layoutStore.isExpanded()(item)"
+                  (click)="handleNavigation(item, $event)"
+                  [class.active]="hasActiveChild(item)"
+                  class="w-full group relative flex items-center justify-between px-3 py-2.5 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+                >
+                  <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-green-600 rounded-r-full opacity-0 group-[.active]:opacity-100 transition-opacity"></span>
+                  <div class="flex items-center gap-3 flex-1 min-w-0">
+                    <i
+                      [class]="item.icon + ' text-lg text-gray-500 group-hover:text-green-600 group-[.active]:text-green-600 transition-colors'"
+                      [class.mx-auto]="layoutStore.isSidebarCollapsed()"
+                    ></i>
+                    @if (!layoutStore.isSidebarCollapsed()) {
+                      <span class="font-medium text-sm truncate group-[.active]:text-green-700 group-[.active]:font-semibold">{{ item.label }}</span>
+                    }
+                  </div>
+                  @if (!layoutStore.isSidebarCollapsed()) {
+                    <div class="flex items-center gap-2">
+                      @if (item.badge) {
+                        <span class="min-w-[20px] h-5 px-1.5 flex items-center justify-center text-xs font-bold bg-green-100 text-green-700 group-[.active]:bg-green-600 group-[.active]:text-white rounded-full">{{ item.badge }}</span>
+                      }
+                      <i [class.rotate-180]="layoutStore.isExpanded()(item)" class="pi pi-chevron-down text-xs text-gray-400 transition-transform duration-200"></i>
+                    </div>
+                  }
+                </button>
+              } @else {
+                <a
+                  [routerLink]="item.routerLink || null"
+                  [attr.aria-label]="item.ariaLabel"
+                  [attr.aria-current]="isRouteActive(item.routerLink) ? 'page' : null"
+                  (click)="handleNavigation(item, $event)"
+                  [class.active]="isRouteActive(item.routerLink)"
+                  class="group relative flex items-center justify-between px-3 py-2.5 rounded-lg transition-all duration-200 text-gray-700 hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+                >
+                  <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-green-600 rounded-r-full opacity-0 group-[.active]:opacity-100 transition-opacity"></span>
+                  <div class="flex items-center gap-3 flex-1 min-w-0">
+                    <i
+                      [class]="item.icon + ' text-lg text-gray-500 group-hover:text-green-600 group-[.active]:text-green-600 transition-colors'"
+                      [class.mx-auto]="layoutStore.isSidebarCollapsed()"
+                    ></i>
+                    @if (!layoutStore.isSidebarCollapsed()) {
+                      <span class="font-medium text-sm truncate group-[.active]:text-green-700 group-[.active]:font-semibold">{{ item.label }}</span>
+                    }
+                  </div>
+                  @if (!layoutStore.isSidebarCollapsed() && item.badge) {
+                    <span class="min-w-[20px] h-5 px-1.5 flex items-center justify-center text-xs font-bold bg-green-100 text-green-700 group-[.active]:bg-green-600 group-[.active]:text-white rounded-full">{{ item.badge }}</span>
+                  }
+                  @if (layoutStore.isSidebarCollapsed() && item.badge) {
+                    <span class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 flex items-center justify-center text-[10px] font-bold bg-green-600 text-white rounded-full ring-2 ring-white">{{ item.badge }}</span>
+                  }
+                </a>
+              }
+
+              @if (item.items && item.items.length > 0 && layoutStore.isExpanded()(item) && !layoutStore.isSidebarCollapsed()) {
+                <ul class="mt-1 ml-6 pl-3 border-l-2 border-gray-200 space-y-0.5">
+                  @for (subItem of item.items; track subItem.label) {
+                    <li>
+                      <a
+                        [routerLink]="subItem.routerLink || null"
+                        [attr.aria-label]="subItem.ariaLabel"
+                        [attr.aria-current]="isRouteActive(subItem.routerLink) ? 'page' : null"
+                        (click)="handleNavigation(subItem, $event)"
+                        [class.active]="isRouteActive(subItem.routerLink)"
+                        class="group/sub relative flex items-center justify-between px-3 py-2 rounded-lg transition-all duration-200 text-gray-600 hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+                      >
+                        <div class="flex items-center gap-2.5 flex-1 min-w-0">
+                          <i [class]="subItem.icon + ' text-sm text-gray-400 group-hover/sub:text-green-600 group-[.active]/sub:text-green-600 transition-colors'"></i>
+                          <span class="text-sm truncate group-[.active]/sub:text-green-700 group-[.active]/sub:font-semibold">{{ subItem.label }}</span>
+                        </div>
+                        @if (subItem.badge) {
+                          <span class="min-w-[18px] h-4 px-1.5 flex items-center justify-center text-[10px] font-bold bg-green-100 text-green-700 group-[.active]/sub:bg-green-600 group-[.active]/sub:text-white rounded-full">{{ subItem.badge }}</span>
+                        }
+                      </a>
+                    </li>
+                  }
+                </ul>
+              }
+            </div>
+          }
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <div class="border-t border-gray-200 p-3 flex-shrink-0 bg-white">
+    @if (!layoutStore.isSidebarCollapsed()) {
+      <div class="space-y-2">
+        @if (userInfo(); as user) {
+          <button
+            type="button"
+            (click)="toggleUserMenu()"
+            class="w-full flex items-center gap-3 px-3 py-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer"
+          >
+            <div class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+              {{ user.initials }}
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-semibold text-gray-900 truncate">{{ user.name }}</p>
+              <p class="text-xs text-green-600 truncate">{{ user.role }}</p>
+            </div>
+            <i class="pi text-gray-400 text-xs" [ngClass]="showUserMenu() ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+          </button>
+        }
+
+        @if (showUserMenu()) {
+          <div class="flex justify-between gap-1">
+            <button
+              type="button"
+              (click)="onLogout()"
+              aria-label="Cerrar sesión"
+              class="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors"
+            >
+              <i class="pi pi-sign-out text-base"></i>
+              <span class="text-xs font-medium">Salir</span>
+            </button>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="space-y-2">
+        @if (userInfo(); as user) {
+          <button
+            type="button"
+            (click)="toggleUserMenu()"
+            class="w-10 h-10 mx-auto bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-sm hover:bg-green-700 transition-colors cursor-pointer"
+          >
+            {{ user.initials }}
+          </button>
+        }
+
+        @if (showUserMenu()) {
+          <button
+            type="button"
+            (click)="onLogout()"
+            aria-label="Cerrar sesión"
+            class="w-10 h-10 mx-auto flex items-center justify-center rounded-lg text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors"
+          >
+            <i class="pi pi-sign-out text-base"></i>
+          </button>
+        }
+      </div>
+    }
+  </div>
+</aside>
+
+@if (layoutStore.isSidebarOpen()) {
+  <div
+    (click)="layoutStore.closeSidebar()"
+    class="lg:hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-40 animate-fadeIn"
+    aria-hidden="true"
+  ></div>
+}

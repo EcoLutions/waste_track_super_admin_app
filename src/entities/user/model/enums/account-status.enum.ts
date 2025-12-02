@@ -1,0 +1,6 @@
+export enum AccountStatusEnum {
+  ACTIVE = 'ACTIVE',
+  LOCKED = 'LOCKED',
+  PENDING_ACTIVATION = 'PENDING_ACTIVATION',
+  DISABLED = 'DISABLED',
+}
